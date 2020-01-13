@@ -1,0 +1,14 @@
+{
+	"browser": {
+    "run": {
+      "expressions": [
+        "Vas sur google.com",
+        "Lance google.com",
+        "Go to google.net",
+        "Launch google.net",
+        "Go to google.fr",
+        "Launch google.fr"
+      ]
+    }
+  }
+}

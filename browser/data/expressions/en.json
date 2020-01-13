@@ -1,0 +1,14 @@
+{
+	"browser": {
+    "run": {
+      "expressions": [
+        "Go to google.com",
+        "Launch google.com",
+        "Go to google.net",
+        "Launch google.net",
+        "Go to google.fr",
+        "Launch google.fr"
+      ]
+    }
+  }
+}
