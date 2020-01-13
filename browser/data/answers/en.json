@@ -1,0 +1,16 @@
+{
+	"browser": {
+		"up": [
+			"%website_name% is running correctly.",
+			"%website_name% is working correctly."
+		],
+		"done": [
+			"Done!",
+			"Here you go!"
+		],
+    	"invalid_domain_name": [
+      		"Please provide me at least one valid domain name.",
+      		"You did not gave me a valid domain name."
+    	]
+	}
+}
