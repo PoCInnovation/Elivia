@@ -1,0 +1,13 @@
+{
+	"weather": {
+		"found": [
+			"It is %temperature% degrees Celsius in %city%",
+			"It's %temperature% in %city%",
+			"Temperature in %city% is %temperature%"
+		],
+		"notfound": [
+			"I do not know your place",
+			"??"
+		]
+	}
+}
