@@ -1,5 +1,6 @@
 package com.example.poc_e
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Bundle
 import android.view.KeyEvent
@@ -10,11 +11,14 @@ import android.webkit.WebViewClient
 
 class FullscreenActivity : Activity() {
     private var mWebView: WebView? = null
+    @SuppressLint("SetJavaScriptEnabled")
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.requestFeature(Window.FEATURE_NO_TITLE)
         mWebView = WebView(this)
-        mWebView!!.loadUrl("https://tmoynat.fr/")
+        mWebView!!.settings.javaScriptEnabled = true
+        mWebView!!.settings.domStorageEnabled = true
+        mWebView!!.loadUrl("https://poc.oursin.eu/")
         mWebView!!.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(
                 view: WebView,
