@@ -1,4 +1,4 @@
-package com.example.leon
+package com.poc.leonapp
 
 import org.junit.Test
 
