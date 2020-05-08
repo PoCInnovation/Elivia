@@ -13,6 +13,7 @@ import io.socket.client.Socket
 import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_chat.*
 import org.json.JSONObject
+import org.jsoup.Jsoup
 
 class ChatActivity : AppCompatActivity() {
 
@@ -37,9 +38,15 @@ class ChatActivity : AppCompatActivity() {
             Log.d("ChatActivity", "User is now connected to Leon")
             socket.emit("init", "webapp")
         })
-        socket.on("answer", Emitter.Listener {
+
+        socket.on("answer", Emitter.Listener {  args ->
+            var headers:String = args[0].toString()
+
+            headers = Jsoup.parse(headers).text();
+            Log.d("ChatActivity", "${headers}")
+
             // Adding HARDCODE text
-            list.add("HARDCODE TEXT")
+            list.add(headers)
 
             // Adding text to RecyclerView on UI
             runOnUiThread {
