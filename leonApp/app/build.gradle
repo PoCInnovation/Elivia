@@ -42,4 +42,6 @@ dependencies {
 
     // To create custom view
     implementation "com.xwray:groupie:2.1.0"
+
+    implementation("org.jsoup:jsoup:1.11.3")
 }
