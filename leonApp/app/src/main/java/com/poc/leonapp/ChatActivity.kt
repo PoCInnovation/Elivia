@@ -13,13 +13,12 @@ import io.socket.client.Socket
 import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_chat.*
 import org.json.JSONObject
-import org.jsoup.Jsoup
 
 class ChatActivity : AppCompatActivity() {
 
     private val adapter = GroupAdapter<ViewHolder>()
     private var list = ArrayList<String>()
-    private var socket: Socket = IO.socket("http://192.168.0.14:1337")
+    private var socket: Socket = IO.socket("http://192.168.1.30:1337")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,13 +39,13 @@ class ChatActivity : AppCompatActivity() {
         })
 
         socket.on("answer", Emitter.Listener {  args ->
-            var headers:String = args[0].toString()
+            var resp: LeonMessage
+            if (args.size == 1 && args[0] is JSONObject)
+                resp = LeonMessage(args[0] as JSONObject)
+            else
+                resp = LeonMessage("Invalid response", "none")
 
-            headers = Jsoup.parse(headers).text();
-            Log.d("ChatActivity", "${headers}")
-
-            // Adding HARDCODE text
-            list.add(headers)
+            list.add(resp.msg)
 
             // Adding text to RecyclerView on UI
             runOnUiThread {
