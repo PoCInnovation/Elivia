@@ -1,7 +1,4 @@
 <resources>
-    <string name="app_name">LeonApp</string>
-    <string name="stringTest">Test</string>
-    <string name="stringEmpty"></string>
-    <string name="stringUserKeyboardHint">Ask something to Leon..</string>
-    <string name="stringUserKeyboardButton">Send</string>
+    <string name="app_name">Leon</string>
+    <string name="string_send">Send</string>
 </resources>

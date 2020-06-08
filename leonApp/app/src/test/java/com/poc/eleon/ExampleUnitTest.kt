@@ -1,4 +1,4 @@
-package com.poc.leonapp
+package com.poc.eleon
 
 import org.junit.Test
 
