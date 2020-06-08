@@ -3,7 +3,7 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
-    <color name="colorLeonMainTheme">#151718</color>
-    <color name="colorLeonAiTheme">#FFFFFF</color>
-    <color name="colorLeonUserTheme">#1C75DB</color>
+    <color name="colorThemeDark">#151718</color>
+    <color name="colorLeonBubble">#1C75DB</color>
+    <color name="colorUserBubble">#FFFFFF</color>
 </resources>
