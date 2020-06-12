@@ -34,7 +34,7 @@ import java.io.InputStream
 
 class ChatActivity : AppCompatActivity() {
     private var socket: Socket = IO.socket("http://192.168.0.14:1337")
-    var mediaRecorder: MediaRecorder? = null
+    private var mediaRecorder: MediaRecorder? = null
     private var FILE_RECORDING = ""
 
     private val PERMISSION_GRANTED = PackageManager.PERMISSION_GRANTED
@@ -207,7 +207,6 @@ class ChatActivity : AppCompatActivity() {
                 soundBytes = ByteArray(inputStream!!.available())
                 soundBytes = toByteArray(inputStream!!)!!
                 Log.d("ChatActivity", "Audio converted")
-                Toast.makeText(this, "Recording Finished $soundBytes", Toast.LENGTH_LONG).show()
                 socket.emit("recognize", soundBytes)
                 Log.d("ChatActivity", "Audio sent")
             } catch (e: Exception) {
