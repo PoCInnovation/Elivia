@@ -1,0 +1,8 @@
+{
+ "port": "8080",
+ "host": "localhost",
+ "ssl": false,
+ "debug_level": "error",
+ "bot_name": "Olivia",
+ "user_token": "3ce3c4bced5c13bdbfa3694d5b98cefe339cee2c8d66283ba7fbab8bd182"
+}
