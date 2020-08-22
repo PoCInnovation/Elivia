@@ -2,18 +2,19 @@ package analysis
 
 import (
 	"fmt"
-	"math/rand"
 	"os"
 	"sort"
+	"strings"
 	"time"
 
 	"github.com/PoCFrance/e/locales"
+	"github.com/PoCFrance/e/myutil"
 	"github.com/PoCFrance/e/plugins"
 
-	"github.com/gookit/color"
-	gocache "github.com/patrickmn/go-cache"
 	"github.com/PoCFrance/e/network"
 	"github.com/PoCFrance/e/util"
+	"github.com/gookit/color"
+	gocache "github.com/patrickmn/go-cache"
 )
 
 // A Sentence represents simply a sentence with its content as a string
@@ -74,37 +75,20 @@ func RandomizeResponse(locale, entry, tag, token string) plugins.MData {
 	if tag == DontUnderstand {
 		return md.Init(DontUnderstand, util.GetMessage(locale, tag))
 	}
-
-	for _, pack := range plugins.GetPackage(locale) {
-		for _, resp := range pack.IO.Response {
-			if resp.Tag != tag {
-				continue
+	splited := strings.Split(tag, "_")
+	if len(splited) == 3 {
+		for _, pack := range plugins.GetPackage(locale) {
+			if pack.Name == splited[0] {
+				for _, t := range pack.IO.Triggers {
+					if t.CallBack != splited[2] {
+						continue
+					}
+					// And then apply the triggers on the message
+					return plugins.CallPredicat(pack, t.CallBack, locale, myutil.ExtractEntries(pack.IO.Triggers[0].Entries, entry))
+				}
 			}
-
-			// Reply a "don't understand" message if the context isn't correct
-
-			// TODO understand this
-			// cacheTag, _ := userCache.Get(token)
-			// if intent.Context != "" && cacheTag != intent.Context {
-			// 	return md.Init(DontUnderstand, util.GetMessage(locale, DontUnderstand))
-			// }
-
-			// Set the actual context
-			// userCache.Set(token, tag, gocache.DefaultExpiration)
-
-			// Choose a random response in intents
-			response := ""
-			len := len(resp.Messages)
-			if len > 1 {
-				rand.Seed(time.Now().UnixNano())
-				response = resp.Messages[rand.Intn(len)]
-			}
-
-			// And then apply the triggers on the message
-			return plugins.ReplaceContent(locale, tag, entry, response, token)
 		}
 	}
-
 	return md.Init(DontUnderstand, util.GetMessage(locale, DontUnderstand))
 }
 
