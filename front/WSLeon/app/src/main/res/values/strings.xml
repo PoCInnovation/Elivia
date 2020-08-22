@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">WSLeon</string>
+    <string name="start">Start</string>
+    <string name="send">send</string>
+    <string name="textHint">Ask something to Olivia</string>
+    <string name="textHintEmpty" />
+</resources>
