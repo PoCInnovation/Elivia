@@ -8,8 +8,8 @@ import (
 	"os/exec"
 	"plugin"
 
-	"github.com/robpike/filter"
 	"github.com/PoCFrance/e/myutil"
+	"github.com/robpike/filter"
 )
 
 // Package records all the necessary to load runtime package
