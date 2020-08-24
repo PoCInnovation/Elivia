@@ -80,13 +80,13 @@ func SocketHandle(w http.ResponseWriter, r *http.Request) {
 func Reply(request RequestMessage) []byte {
 	var responseSentence, responseTag string
 	// var Actions []string
-	var md plugins.MData
+	var r plugins.Response
 
 	// Send a message from res/datasets/messages.json if it is too long
 	if len(request.Content) > 500 {
 		responseTag = "too long"
 		responseSentence = util.GetMessage(request.Locale, responseTag)
-		md.Init(responseTag, responseSentence)
+		r.Init(responseTag, responseSentence)
 	} else {
 		// If the given locale is not supported yet, set english
 		locale := request.Locale
@@ -94,10 +94,10 @@ func Reply(request RequestMessage) []byte {
 			locale = "en"
 		}
 
-		md = analysis.NewSentence(
+		r = analysis.NewSentence(
 			locale, request.Content,
 		).Calculate(*cache, neuralNetworks[locale], request.Token)
-		fmt.Println("got this information from module :\n", md)
+		fmt.Println("got this information from module :\n", r)
 	}
 
 	// Marshall the response in json
@@ -108,7 +108,7 @@ func Reply(request RequestMessage) []byte {
 	// 	Actions:     Actions,
 	// }
 
-	bytes, err := json.Marshal(md)
+	bytes, err := json.Marshal(r)
 	if err != nil {
 		panic(err)
 	}

@@ -12,6 +12,8 @@ import (
 	"github.com/robpike/filter"
 )
 
+type Module (func(string, map[string]string) (string, map[string]interface{}))
+
 // Package records all the necessary to load runtime package
 type Package struct {
 	Plug *plugin.Plugin
@@ -28,13 +30,13 @@ func GetPackage(locale string) []Package {
 
 func loader(f os.FileInfo, local string, pchan chan interface{}) {
 	name := f.Name()
-	cmd := exec.Command("go", "build", "-buildmode=plugin", "-o", name+".so")
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	cmd.Dir = "./package/" + name
-	err := cmd.Run()
+	cr := exec.Command("go", "build", "-buildmode=plugin", "-o", name+".so")
+	cr.Stdout = os.Stdout
+	cr.Stderr = os.Stderr
+	cr.Dir = "./package/" + name
+	err := cr.Run()
 	if err != nil {
-		fmt.Printf("cmd.Run() failed with %s\n", err)
+		fmt.Printf("cr.Run() failed with %s\n", err)
 		pchan <- err
 		return
 	}
