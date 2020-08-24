@@ -1,21 +1,15 @@
 package analysis
 
-import (
-	"encoding/json"
+// var intents = map[string][]Intent{}
 
-	"github.com/PoCFrance/e/util"
-)
-
-var intents = map[string][]Intent{}
-
-// Intent is a way to group sentences that mean the same thing and link them with a tag which
-// represents what they mean, some responses that the bot can reply and a context
-type Intent struct {
-	Tag       string   `json:"tag"`
-	Patterns  []string `json:"patterns"`
-	Responses []string `json:"responses"`
-	Context   string   `json:"context"`
-}
+// // Intent is a way to group sentences that mean the same thing and link them with a tag which
+// // represents what they mean, some responses that the bot can reply and a context
+// type Intent struct {
+// 	Tag       string   `json:"tag"`
+// 	Patterns  []string `json:"patterns"`
+// 	Responses []string `json:"responses"`
+// 	Context   string   `json:"context"`
+// }
 
 // Document is any sentence from the intents' patterns linked with its tag
 type Document struct {
@@ -23,40 +17,40 @@ type Document struct {
 	Tag      string
 }
 
-// CacheIntents set the given intents to the global variable intents
-func CacheIntents(locale string, _intents []Intent) {
-	intents[locale] = _intents
-}
+// // CacheIntents set the given intents to the global variable intents
+// func CacheIntents(locale string, _intents []Intent) {
+// 	intents[locale] = _intents
+// }
 
-// GetIntents returns the cached intents
-func GetIntents(locale string) []Intent {
-	return intents[locale]
-}
+// // GetIntents returns the cached intents
+// func GetIntents(locale string) []Intent {
+// 	return intents[locale]
+// }
 
-// SerializeIntents returns a list of intents retrieved from the given intents file
-func SerializeIntents(locale string) (_intents []Intent) {
-	err := json.Unmarshal(util.ReadFile("res/locales/"+locale+"/intents.json"), &_intents)
-	if err != nil {
-		panic(err)
-	}
+// // SerializeIntents returns a list of intents retrieved from the given intents file
+// func SerializeIntents(locale string) (_intents []Intent) {
+// 	err := json.Unmarshal(util.ReadFile("res/locales/"+locale+"/intents.json"), &_intents)
+// 	if err != nil {
+// 		panic(err)
+// 	}
 
-	CacheIntents(locale, _intents)
+// 	CacheIntents(locale, _intents)
 
-	return _intents
-}
+// 	return _intents
+// }
 
-// GetIntentByTag returns an intent found by given tag and locale
-func GetIntentByTag(tag, locale string) Intent {
-	for _, intent := range GetIntents(locale) {
-		if tag != intent.Tag {
-			continue
-		}
+// // GetIntentByTag returns an intent found by given tag and locale
+// func GetIntentByTag(tag, locale string) Intent {
+// 	for _, intent := range GetIntents(locale) {
+// 		if tag != intent.Tag {
+// 			continue
+// 		}
 
-		return intent
-	}
+// 		return intent
+// 	}
 
-	return Intent{}
-}
+// 	return Intent{}
+// }
 
 // // Organize intents with an array of all words, an array with a representative word of each tag
 // // and an array of Documents which contains a word list associated with a tag

@@ -59,10 +59,10 @@ func (p *Parser) beforeIdx(needle string, x int) int {
 	for i, it := range p.sd {
 		if needle == it.W {
 			if countdown == x {
-				if i == 0 {
+				if p.sd[i].I == 0 {
 					return 0
 				}
-				return p.sd[i-1].I
+				return p.sd[i].I - 1
 			}
 			countdown++
 		}
