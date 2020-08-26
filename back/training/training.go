@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/gookit/color"
 	"github.com/PoCFrance/e/analysis"
 	"github.com/PoCFrance/e/network"
 	"github.com/PoCFrance/e/util"
+	"github.com/gookit/color"
 )
 
 // TrainData returns the inputs and outputs for the neural network
@@ -26,7 +26,6 @@ func TrainData(locale string) (inputs, outputs [][]float64) {
 		inputs = append(inputs, bag)
 		outputs = append(outputs, outputRow)
 	}
-	fmt.Println("len layer :", len(inputs), len(outputs))
 	return inputs, outputs
 }
 

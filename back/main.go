@@ -66,7 +66,7 @@ func main() {
 	reTrainModels()
 
 	for _, locale := range locales.Locales {
-		plugins.LoadPlugins(locale.Tag)
+		plugins.LoadPackage(locale.Tag)
 		n, err := training.CreateNeuralNetwork(
 			locale.Tag,
 			false,
