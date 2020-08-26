@@ -1,7 +1,6 @@
 package analysis
 
 import (
-	"errors"
 	"fmt"
 	"math/rand"
 	"os"
@@ -9,16 +8,21 @@ import (
 	"strings"
 	"time"
 
-	"github.com/PoCFrance/e/myutil"
-
 	"github.com/PoCFrance/e/locales"
 	"github.com/PoCFrance/e/plugins"
+	"github.com/PoCFrance/e/plugins/bridge"
 
 	"github.com/PoCFrance/e/network"
 	"github.com/PoCFrance/e/util"
 	"github.com/gookit/color"
 	gocache "github.com/patrickmn/go-cache"
 )
+
+// Document is any sentence from the intents' patterns linked with its tag
+type Document struct {
+	Sentence Sentence
+	Tag      string
+}
 
 // A Sentence represents simply a sentence with its content as a string
 type Sentence struct {
@@ -71,62 +75,27 @@ func (sentence Sentence) PredictTag(neuralNetwork network.Network) string {
 	return resultsTag[0].Tag
 }
 
-func randomizeResponse(p int, tag, locale string) (r plugins.Response) {
-	for _, res := range plugins.GetPackage(locale)[p].IO.Response {
-		if res.Tag == tag {
-			len := len(res.Messages)
-			if len >= 1 {
-				rand.Seed(time.Now().UnixNano())
-				response := res.Messages[rand.Intn(len)]
-				return r.Init(tag, response)
-			}
-			break
+func randomizeResponse(pack plugins.Package, tag, locale string) (r bridge.Response) {
+	for _, reponse := range pack.Responses {
+		if reponse.Tag != tag {
+			continue
+		}
+		len := len(reponse.Messages)
+		if len >= 1 {
+			rand.Seed(time.Now().UnixNano())
+			response := reponse.Messages[rand.Intn(len)]
+			return r.Init(tag, response)
 		}
 	}
 	return r.Init(DontUnderstand, util.GetMessage(locale, DontUnderstand))
 }
 
-func seekModule(tag, locale string) (int, int, error) {
-	splited := strings.Split(tag, "_")
-	if len(splited) != 3 {
-		return 0, 0, errors.New("invalid tag")
-	}
-	for packi, pack := range plugins.GetPackage(locale) {
-		if pack.Name == splited[0] {
-			for triggeri, t := range pack.IO.Triggers {
-				if t.CallBack != splited[2] {
-					continue
-				}
-				return packi, triggeri, nil
-			}
-		}
-	}
-
-	return 0, 0, errors.New("module not found")
-}
-
-type Module (func(string, map[string]string) (string, map[string]interface{}))
-
-func retrieveModule(p, t int, locale string) (Module, error) {
-	plug := plugins.GetPackage(locale)[p]
-	symb, err := plug.Plug.Lookup(plug.IO.Triggers[t].CallBack)
-	if err != nil {
-		return nil, err
-	}
-	module, ok := symb.(func(string, map[string]string) (string, map[string]interface{}))
-	_, _ = symb.(Module)
-	if !ok {
-		return nil, errors.New("Module has invalid format")
-	}
-	return module, nil
-}
-
-func (sentence Sentence) extractEntries(entries []myutil.Entries) map[string]string {
-	return myutil.ExtractEntries(entries, sentence.Content)
+func (sentence Sentence) extractEntries(entries []plugins.Entries) map[string]string {
+	return bridge.ExtractEntries(entries, sentence.Content)
 }
 
 // Calculate send the sentence content to the neural network and returns a response with the matching tag
-func (sentence Sentence) Calculate(_ gocache.Cache, neuralNetwork network.Network, token string) (r plugins.Response) {
+func (sentence Sentence) Calculate(_ gocache.Cache, neuralNetwork network.Network, token string) (r bridge.Response) {
 	// tag, found := cache.Get(sentence.Content)
 	// Todo check if caching is still possible once reformat is done
 	// Predict tag with the neural network if the sentence isn't in the cache
@@ -135,22 +104,25 @@ func (sentence Sentence) Calculate(_ gocache.Cache, neuralNetwork network.Networ
 	// }
 
 	tag := sentence.PredictTag(neuralNetwork)
-	p, t, err := seekModule(tag, sentence.Locale)
-	if err != nil {
-		fmt.Println(err)
+	splited := strings.Split(tag, "_")
+	if len(splited) != 4 {
 		return r.Init(DontUnderstand, util.GetMessage(sentence.Locale, DontUnderstand))
 	}
 
-	module, err := retrieveModule(p, t, sentence.Locale)
-	if err != nil {
-		fmt.Println(err)
-		return r.Init(DontUnderstand, util.GetMessage(sentence.Locale, DontUnderstand))
+	for _, pack := range plugins.GetPackage(sentence.Locale) {
+		if pack.Name != splited[0] {
+			continue
+		}
+		module, ok := pack.Modules[splited[2]]
+		if !ok {
+			continue
+		}
+		responseTag, json := module.Func(sentence.Locale, sentence.extractEntries(module.Triggers[tag].Entries))
+		r = randomizeResponse(pack, responseTag, sentence.Locale)
+		r.AppendData(json)
+		return r.Format()
 	}
-
-	responseTag, json := module(sentence.Locale, sentence.extractEntries(plugins.GetPackage(sentence.Locale)[p].IO.Triggers[t].Entries))
-	r = randomizeResponse(p, responseTag, sentence.Locale)
-	r.AppendData(json)
-	return r.Format()
+	return r.Init(DontUnderstand, util.GetMessage(sentence.Locale, DontUnderstand))
 }
 
 // LogResults print in the console the sentence and its tags sorted by prediction

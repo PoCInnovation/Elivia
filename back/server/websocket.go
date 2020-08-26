@@ -7,10 +7,10 @@ import (
 	"reflect"
 
 	"github.com/PoCFrance/e/locales"
-	"github.com/PoCFrance/e/plugins"
+	"github.com/PoCFrance/e/plugins/bridge"
+	"github.com/olivia-ai/olivia/user"
 
 	"github.com/PoCFrance/e/analysis"
-	"github.com/PoCFrance/e/user"
 	"github.com/PoCFrance/e/util"
 	"github.com/gookit/color"
 	"github.com/gorilla/websocket"
@@ -60,7 +60,7 @@ func SocketHandle(w http.ResponseWriter, r *http.Request) {
 
 		// Set the information from the client into the cache
 		if reflect.DeepEqual(user.GetUserInformation(request.Token), user.Information{}) {
-			user.SetUserInformation(request.Token, request.Information)
+			//user.SetUserInformation(request.Token, request.Information)
 		}
 
 		// If the type of requests is a handshake then execute the start modules
@@ -80,7 +80,7 @@ func SocketHandle(w http.ResponseWriter, r *http.Request) {
 func Reply(request RequestMessage) []byte {
 	var responseSentence, responseTag string
 	// var Actions []string
-	var r plugins.Response
+	var r bridge.Response
 
 	// Send a message from res/datasets/messages.json if it is too long
 	if len(request.Content) > 500 {
