@@ -1,6 +1,9 @@
 package com.poc.wsleon.socket
 
+import android.app.Activity
 import android.util.Log
+import com.poc.wsleon.MainActivity
+import com.poc.wsleon.plugin.core.PluginManager
 import com.poc.wsleon.ui.LeonView
 import okhttp3.Response
 import okhttp3.WebSocket
@@ -8,12 +11,14 @@ import okhttp3.WebSocketListener
 import okio.ByteString
 import org.json.JSONObject
 
-class LeonWebSocket(view: LeonView): WebSocketListener() {
+class LeonWebSocket(view: LeonView, plugins: PluginManager, activity: Activity): WebSocketListener() {
     private val chat = view
+    private val pluginManager = plugins
+    private val token = ByteArray(50)
+    val mainActivity = activity
 
     override fun onOpen(webSocket: WebSocket, response: Response) {
         val connectionHeader = JSONObject()
-        val token = ByteArray(50)
 
         connectionHeader.put("type", 0)
         connectionHeader.put("content", "")
@@ -25,11 +30,14 @@ class LeonWebSocket(view: LeonView): WebSocketListener() {
     }
 
     override fun onMessage(webSocket: WebSocket, text: String) {
-        // Log.d("LeonWebSocket", "Received message : [${text}]")
         val obj = JSONObject(text)
-        val oliviaResponse = obj["content"].toString()
+        val oliviaResponse = obj["response"].toString()
+        val pluginName: String = obj["package"].toString()
 
-        chat.addOliviaBubble(oliviaResponse)
+        mainActivity.runOnUiThread {
+            chat.addOliviaBubble(oliviaResponse)
+        }
+        pluginManager.run(pluginName, obj["data"] as JSONObject)
     }
 
     override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
@@ -44,8 +52,8 @@ class LeonWebSocket(view: LeonView): WebSocketListener() {
     override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
         Log.d("LeonWebSocket", "WebSocket failure : [${t.message}]")
     }
+
     fun onSend(webSocket: WebSocket, content: String) {
-        val token = ByteArray(50)
         val message = JSONObject()
 
         message.put("type", 1)

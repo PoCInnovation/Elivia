@@ -22,14 +22,15 @@ class SendSms(context: Context, activity: Activity, view: LeonView) {
 
     fun run(contactName: String, message: String) {
         val phoneNumber: String = getPhoneNumberFromName(contactName)
-
         if (ActivityCompat.checkSelfPermission(mainContext, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_DENIED) {
             val requestSendSms: Int = 2
 
             requestPermissions(mainActivity, arrayOf(Manifest.permission.SEND_SMS), requestSendSms)
         } else {
             if (phoneNumber == "") {
-                chat.addOliviaBubble("Sorry, but I could not find this contact.")
+                mainActivity.runOnUiThread {
+                    chat.addOliviaBubble("Sorry, but I could not find this contact.")
+                }
                 return
             }
             SmsManager.getDefault().sendTextMessage(phoneNumber, null, message, null, null)
@@ -43,7 +44,7 @@ class SendSms(context: Context, activity: Activity, view: LeonView) {
 
         for (i in 0 until contactList.size) {
             for (key in contactList[i].keys) {
-                if (key == contactName) {
+                if (key.toLowerCase(Locale.ROOT) == contactName.toLowerCase(Locale.ROOT)) {
                     tmp = contactList[i] as HashMap<String, String>
                     phoneNumber = tmp[key].toString()
                     tmp.clear()
@@ -66,7 +67,7 @@ class SendSms(context: Context, activity: Activity, view: LeonView) {
 
     private fun getContacts(): LinkedList<Map<String, String>> {
         val contactList: LinkedList<Map<String, String>> =  LinkedList<Map<String, String>>()
-        val resolver: ContentResolver = mainContext.contentResolver;
+        val resolver: ContentResolver = mainActivity.contentResolver;
         val cursor = resolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null)
 
         if (cursor != null) {
@@ -78,7 +79,7 @@ class SendSms(context: Context, activity: Activity, view: LeonView) {
                         cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))).toInt()
 
                     if (phoneNumber > 0) {
-                        val cursorPhone = mainContext.contentResolver.query(
+                        val cursorPhone = mainActivity.contentResolver.query(
                             ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
                             null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?", arrayOf(id), null)
 

@@ -18,13 +18,13 @@ class MainActivity : AppCompatActivity() {
         val chat = LeonView()
         chat.initRecyclerViewAdapter(chatView)
 
-        val pluginManager = PluginManager(this, this, chat)
+        val plugins = PluginManager(this, this, chat)
         val userButtonSend: Button = findViewById(R.id.userButtonSend)
         val userTextInput: EditText = findViewById(R.id.userTextInput)
 
         val client = OkHttpClient();
         val request: Request = Request.Builder().url("ws://192.168.0.14:8080/websocket").build()
-        val listener = LeonWebSocket(chat)
+        val listener = LeonWebSocket(chat, plugins, this)
         val ws: WebSocket = client.newWebSocket(request, listener)
 
         userButtonSend.setOnClickListener {

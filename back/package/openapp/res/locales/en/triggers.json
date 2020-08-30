@@ -1,0 +1,30 @@
+[
+  {
+    "Module": [
+      {
+        "entries": [
+          {
+            "name": "appname",
+            "parser": "after",
+            "resources": {
+              "key": "open",
+              "x": -1
+            }
+          }
+        ],
+        "patterns": [
+          "open "
+        ],
+        "olivia-feed": [
+          "open calendar",
+          "open youtube",
+          "open sms",
+          "open contact",
+          "open google",
+          "open instagram",
+          "open twitter"
+        ]
+      }
+    ]
+  }
+]
