@@ -37,7 +37,7 @@ You can start the application once build is completed.
 ## Maintainers
 
 * [Theo Ardouin](https://github.com/Qwexta)
-* [Luca George Francois](https://github.com/PixelFault-tech)
+* [Luca Georges Francois](https://github.com/PixelFault-tech)
 
 ## Source
 
