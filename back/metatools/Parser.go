@@ -1,5 +1,7 @@
 package metatools
 
+import "strings"
+
 type indextion struct {
 	I int
 	W string
@@ -13,12 +15,12 @@ type Parser struct {
 
 // Init the parser
 func (p *Parser) Init(d string) {
-	p.data = d
+	p.data = strings.ToLower(d)
 	var index indextion
 
 	var whitespace bool = true
 	var wordstart int = 0
-	for i, c := range d {
+	for i, c := range p.data {
 		if c != ' ' {
 			whitespace = false
 			continue
@@ -29,13 +31,13 @@ func (p *Parser) Init(d string) {
 		}
 
 		index.I = wordstart
-		index.W = d[wordstart:i]
+		index.W = p.data[wordstart:i]
 		p.sd = append(p.sd, index)
 		whitespace = true
 		wordstart = i + 1
 	}
 	index.I = wordstart
-	index.W = d[wordstart:]
+	index.W = p.data[wordstart:]
 	p.sd = append(p.sd, index)
 }
 
