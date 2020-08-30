@@ -5,16 +5,24 @@ import (
 	"math/rand"
 	"os"
 	"sort"
+	"strings"
 	"time"
 
 	"github.com/PoCFrance/e/locales"
 	"github.com/PoCFrance/e/plugins"
+	"github.com/PoCFrance/e/plugins/bridge"
 
-	"github.com/gookit/color"
-	gocache "github.com/patrickmn/go-cache"
 	"github.com/PoCFrance/e/network"
 	"github.com/PoCFrance/e/util"
+	"github.com/gookit/color"
+	gocache "github.com/patrickmn/go-cache"
 )
+
+// Document is any sentence from the intents' patterns linked with its tag
+type Document struct {
+	Sentence Sentence
+	Tag      string
+}
 
 // A Sentence represents simply a sentence with its content as a string
 type Sentence struct {
@@ -67,60 +75,54 @@ func (sentence Sentence) PredictTag(neuralNetwork network.Network) string {
 	return resultsTag[0].Tag
 }
 
-// RandomizeResponse takes the entry message, the response tag and the token and returns a random
-// message from res/datasets/intents.json where the triggers are applied
-func RandomizeResponse(locale, entry, tag, token string) plugins.MData {
-	var md plugins.MData
-	if tag == DontUnderstand {
-		return md.Init(DontUnderstand, util.GetMessage(locale, tag))
-	}
-
-	for _, pack := range plugins.GetPackage(locale) {
-		for _, resp := range pack.IO.Response {
-			if resp.Tag != tag {
-				continue
-			}
-
-			// Reply a "don't understand" message if the context isn't correct
-
-			// TODO understand this
-			// cacheTag, _ := userCache.Get(token)
-			// if intent.Context != "" && cacheTag != intent.Context {
-			// 	return md.Init(DontUnderstand, util.GetMessage(locale, DontUnderstand))
-			// }
-
-			// Set the actual context
-			// userCache.Set(token, tag, gocache.DefaultExpiration)
-
-			// Choose a random response in intents
-			response := ""
-			len := len(resp.Messages)
-			if len > 1 {
-				rand.Seed(time.Now().UnixNano())
-				response = resp.Messages[rand.Intn(len)]
-			}
-
-			// And then apply the triggers on the message
-			return plugins.ReplaceContent(locale, tag, entry, response, token)
+func randomizeResponse(pack plugins.Package, tag, locale string) (r bridge.Response) {
+	for _, reponse := range pack.Responses {
+		if reponse.Tag != tag {
+			continue
+		}
+		len := len(reponse.Messages)
+		if len >= 1 {
+			rand.Seed(time.Now().UnixNano())
+			response := reponse.Messages[rand.Intn(len)]
+			return r.Init(tag, response)
 		}
 	}
+	return r.Init(DontUnderstand, util.GetMessage(locale, DontUnderstand))
+}
 
-	return md.Init(DontUnderstand, util.GetMessage(locale, DontUnderstand))
+func (sentence Sentence) extractEntries(entries []plugins.Entries) map[string]string {
+	return bridge.ExtractEntries(entries, sentence.Content)
 }
 
 // Calculate send the sentence content to the neural network and returns a response with the matching tag
-func (sentence Sentence) Calculate(_ gocache.Cache, neuralNetwork network.Network, token string) plugins.MData {
+func (sentence Sentence) Calculate(_ gocache.Cache, neuralNetwork network.Network, token string) (r bridge.Response) {
 	// tag, found := cache.Get(sentence.Content)
 	// Todo check if caching is still possible once reformat is done
-
-	tag := sentence.PredictTag(neuralNetwork)
-
 	// Predict tag with the neural network if the sentence isn't in the cache
 	// if !found {
 	// cache.Set(sentence.Content, tag, gocache.DefaultExpiration)
 	// }
 
-	return RandomizeResponse(sentence.Locale, sentence.Content, tag, token)
+	tag := sentence.PredictTag(neuralNetwork)
+	splited := strings.Split(tag, "_")
+	if len(splited) != 4 {
+		return r.Init(DontUnderstand, util.GetMessage(sentence.Locale, DontUnderstand))
+	}
+
+	for _, pack := range plugins.GetPackage(sentence.Locale) {
+		if pack.Name != splited[0] {
+			continue
+		}
+		module, ok := pack.Modules[splited[2]]
+		if !ok {
+			continue
+		}
+		responseTag, json := module.Func(sentence.Locale, sentence.extractEntries(module.Triggers[tag].Entries))
+		r = randomizeResponse(pack, responseTag, sentence.Locale)
+		r.AppendData(json)
+		return r.Format()
+	}
+	return r.Init(DontUnderstand, util.GetMessage(sentence.Locale, DontUnderstand))
 }
 
 // LogResults print in the console the sentence and its tags sorted by prediction

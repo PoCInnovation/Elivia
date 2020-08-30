@@ -1,13 +1,14 @@
-package myutil
+package bridge
 
 import (
 	"fmt"
 
 	"github.com/PoCFrance/e/metatools"
+	"github.com/PoCFrance/e/plugins"
 )
 
 // ExtractEntries finds the corresponding text in the field
-func ExtractEntries(parserInfo []Entries, trigger string) map[string]string {
+func ExtractEntries(parserInfo []plugins.Entries, trigger string) map[string]string {
 	entries := make(map[string]string)
 
 	var parser metatools.Parser

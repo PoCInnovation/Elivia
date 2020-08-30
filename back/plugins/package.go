@@ -9,15 +9,7 @@ import (
 	"plugin"
 
 	"github.com/robpike/filter"
-	"github.com/PoCFrance/e/myutil"
 )
-
-// Package records all the necessary to load runtime package
-type Package struct {
-	Plug *plugin.Plugin
-	IO   myutil.IOMod
-	Name string
-}
 
 var loadedPackage = map[string]([]Package){}
 
@@ -26,15 +18,22 @@ func GetPackage(locale string) []Package {
 	return loadedPackage[locale]
 }
 
-func loader(f os.FileInfo, local string, pchan chan interface{}) {
+func NewPackage(name string, plug *plugin.Plugin) Package {
+	return Package{
+		Plug:    plug,
+		Modules: make(map[string]Module),
+		Name:    name,
+	}
+}
+func loader(f os.FileInfo, locale string, pchan chan interface{}) {
 	name := f.Name()
-	cmd := exec.Command("go", "build", "-buildmode=plugin", "-o", name+".so")
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	cmd.Dir = "./package/" + name
-	err := cmd.Run()
+	cr := exec.Command("go", "build", "-buildmode=plugin", "-o", name+".so")
+	cr.Stdout = os.Stdout
+	cr.Stderr = os.Stderr
+	cr.Dir = "./package/" + name
+	err := cr.Run()
 	if err != nil {
-		fmt.Printf("cmd.Run() failed with %s\n", err)
+		fmt.Printf("cr.Run() failed with %s\n", err)
 		pchan <- err
 		return
 	}
@@ -45,21 +44,18 @@ func loader(f os.FileInfo, local string, pchan chan interface{}) {
 		return
 	}
 
-	io, err := myutil.SerializeIO(name, local)
-	if err != nil {
-		fmt.Println("SerializingIO failed : ", err)
+	pack := NewPackage(name, p)
+
+	if err = pack.loadModules(locale); err != nil {
+		fmt.Println(err)
 		pchan <- err
 		return
 	}
-
-	pchan <- Package{
-		Plug: p,
-		IO:   io,
-		Name: name}
+	pchan <- pack
 }
 
-// LoadPlugins load all the packages located in the "./pachage/" directory
-func LoadPlugins(locale string) []Package {
+// LoadPackage load all the packages located in the "./pachage/" directory
+func LoadPackage(locale string) []Package {
 
 	files, err := ioutil.ReadDir("./package")
 	if err != nil {
@@ -81,7 +77,7 @@ func LoadPlugins(locale string) []Package {
 		res := <-packchan
 		switch res.(type) {
 		case error:
-			// fmt.Println(res.(error))
+			//fmt.Println("loadModules failed : ", err)
 		case Package:
 			packages = append(packages, res.(Package))
 		}

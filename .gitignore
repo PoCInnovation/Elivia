@@ -13,3 +13,5 @@
 /captures
 .externalNativeBuild
 .cxx
+back/res/locale/*/training.json
+back/package/*/*.so
