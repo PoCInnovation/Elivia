@@ -7,8 +7,8 @@ import (
 
 // Response represent a Json object that will be returned by the Modules
 type Response struct {
-	Tag      string                 `json:"tag"`
-	Response string                 `json:"Response"`
+	Tag      string                 `json:"package"`
+	Response string                 `json:"response"`
 	Data     map[string]interface{} `json:"data"`
 }
 
