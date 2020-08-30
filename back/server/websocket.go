@@ -7,12 +7,13 @@ import (
 	"reflect"
 
 	"github.com/PoCFrance/e/locales"
+	"github.com/PoCFrance/e/plugins/bridge"
+	"github.com/olivia-ai/olivia/user"
 
+	"github.com/PoCFrance/e/analysis"
+	"github.com/PoCFrance/e/util"
 	"github.com/gookit/color"
 	"github.com/gorilla/websocket"
-	"github.com/PoCFrance/e/analysis"
-	"github.com/PoCFrance/e/user"
-	"github.com/PoCFrance/e/util"
 )
 
 // Configure the upgrader
@@ -59,7 +60,7 @@ func SocketHandle(w http.ResponseWriter, r *http.Request) {
 
 		// Set the information from the client into the cache
 		if reflect.DeepEqual(user.GetUserInformation(request.Token), user.Information{}) {
-			user.SetUserInformation(request.Token, request.Information)
+			//user.SetUserInformation(request.Token, request.Information)
 		}
 
 		// If the type of requests is a handshake then execute the start modules
@@ -78,12 +79,14 @@ func SocketHandle(w http.ResponseWriter, r *http.Request) {
 // Reply takes the entry message and returns an array of bytes for the answer
 func Reply(request RequestMessage) []byte {
 	var responseSentence, responseTag string
-	var Actions []string
+	// var Actions []string
+	var r bridge.Response
 
 	// Send a message from res/datasets/messages.json if it is too long
 	if len(request.Content) > 500 {
 		responseTag = "too long"
 		responseSentence = util.GetMessage(request.Locale, responseTag)
+		r.Init(responseTag, responseSentence)
 	} else {
 		// If the given locale is not supported yet, set english
 		locale := request.Locale
@@ -91,24 +94,21 @@ func Reply(request RequestMessage) []byte {
 			locale = "en"
 		}
 
-		md := analysis.NewSentence(
+		r = analysis.NewSentence(
 			locale, request.Content,
 		).Calculate(*cache, neuralNetworks[locale], request.Token)
-		responseTag = md.Tag
-		responseSentence = md.Response
-		Actions = md.Actions
-		fmt.Println("got this information from module :\n", md)
+		fmt.Println("got this information from module :\n", r)
 	}
 
 	// Marshall the response in json
-	response := ResponseMessage{
-		Content:     responseSentence,
-		Tag:         responseTag,
-		Information: user.GetUserInformation(request.Token),
-		Actions:     Actions,
-	}
+	// response := ResponseMessage{
+	// 	Content:     responseSentence,
+	// 	Tag:         responseTag,
+	// 	Information: user.GetUserInformation(request.Token),
+	// 	Actions:     Actions,
+	// }
 
-	bytes, err := json.Marshal(response)
+	bytes, err := json.Marshal(r)
 	if err != nil {
 		panic(err)
 	}
