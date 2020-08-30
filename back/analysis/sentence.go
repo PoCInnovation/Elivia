@@ -84,7 +84,7 @@ func randomizeResponse(pack plugins.Package, tag, locale string) (r bridge.Respo
 		if len >= 1 {
 			rand.Seed(time.Now().UnixNano())
 			response := reponse.Messages[rand.Intn(len)]
-			return r.Init(tag, response)
+			return r.Init(pack.Name, response)
 		}
 	}
 	return r.Init(DontUnderstand, util.GetMessage(locale, DontUnderstand))
