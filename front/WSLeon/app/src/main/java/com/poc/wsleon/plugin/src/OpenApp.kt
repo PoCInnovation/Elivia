@@ -1,4 +1,4 @@
-package com.poc.wsleon.plugin
+package com.poc.wsleon.plugin.src
 
 import android.content.Context
 import android.content.Intent
@@ -9,7 +9,7 @@ import java.util.*
 class OpenApp(context: Context) {
     private val mainContext: Context = context
 
-    private fun run(appName: String) {
+    fun run(appName: String) {
         val packageName: String = getPackNameByAppName(appName, mainContext)
         val launchIntent: Intent? = mainContext.packageManager.getLaunchIntentForPackage(packageName)
 

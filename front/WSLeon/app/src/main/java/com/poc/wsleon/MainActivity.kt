@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import com.poc.wsleon.plugin.core.PluginManager
 import com.poc.wsleon.socket.LeonWebSocket
 import com.poc.wsleon.ui.LeonView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -17,6 +18,7 @@ class MainActivity : AppCompatActivity() {
         val chat = LeonView()
         chat.initRecyclerViewAdapter(chatView)
 
+        val pluginManager = PluginManager(this, this, chat)
         val userButtonSend: Button = findViewById(R.id.userButtonSend)
         val userTextInput: EditText = findViewById(R.id.userTextInput)
 
