@@ -1,0 +1,15 @@
+[
+  {
+    "tag": "no app",
+    "messages": [
+      "Sorry but I couldn't find this app."
+    ]
+  },
+
+  {
+    "tag": "success",
+    "messages": [
+      "I am opening \"%appname%\""
+    ]
+  }
+]
