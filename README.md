@@ -1,52 +1,49 @@
-# /e/ Vocal Assistant
+### e
 
-<p align="center">
-  <img src="./.github/appDemo.png" alt="image-20200623191251374" style="zoom:50%;"/>
-</p>
+## Description
 
-## Introduction
+E is a vocal assistant designed to be respectful of user privacy over theirs data.
+The goal of this project is to be seen incorporated in /e/ os, a product from the [e foundation](https://e.foundation/), do to so it is supervised by [Gaël Duval](https://fr.wikipedia.org/wiki/Ga%C3%ABl_Duval).
 
-/e/ Vocal Assistant is a project designed to be opensource and respectful application for the **/e/ OS**.
-This project has to be incorporated within the [/e/ Foundation Project](https://gitlab.e.foundation/e)
-This project was made using [Leon chatbot](https://github.com/leon-ai/leon)
+E Vocal Assistant is composed of 3 parts, a front end built in Kotlin using gradle, a back-end generously inspired from [Olivia](https://github.com/olivia-ai/olivia)'s design, packaging an AI, and a CLI tool made for testing purpose.
+Each part have it's own `README.md` where all the information relative to the said part will be detailed and explained more in depth.
 
-## /e/  Project
+ ## Installation
 
-The /e/ Foundation goal is to produce open source, privacy-enabled smartphone operating systems.
-
-## Current Project State
-
-The application features 3 majors parts :
-
- - A front-end Kotlin-based application that handles user's communication
- - Leon Chatbot as a back-end interpreter for speech to text or module's redirection
- - Leon's Modules, allowing adding features to the assistant such as SMS sending or Calendar handling
-
-within the front-end we implemented a basic chat as well as a vocal handling.
-
-The project features addition to Leon's chatbot in the handling of Front-end actions return, making the modules able to make android-based actions
-
-## Development
-
-### Installation
-
-```bash
-# clone the Vocal assistant repository
-git clone https://github.com/PoCFrance/e poc-e
+```shell
+git clone https://github.com/PoCFrance/e
 ```
 
-concerning the application, you will have to follow an [android studio guide](https://developer.android.com/guide) to lead you through the software
 
-### Usage
 
-```bash
-# TODO
+// todo luca -- build with android studio
+
+## Quick Start
+
+As a developer or for testing, you can simply start the back end in local and request on it.
+-- for dev purpose it's the basic option since IP isn't configurable yet
+first start the back-end
+
+```shell
+cd back
+go run ./
 ```
 
-Rebuild the app if needed thanks to android studio software
+Then lunch android studio in the `front` folder, and build the app
+You can start the application once build is completed.
 
-## What's next
+// todo luca -- update ip address (conf / raw code update)
 
-We plan to add multiples modules making the assistant bigger and able to handle more request.
+## Maintainers
 
-Also, we did not yet implemented it on /e/ OS and it would be the next major step.
+* [Theo Ardouin](https://github.com/Qwexta)
+* [Luca George Francois](https://github.com/PixelFault-tech)
+
+## Source
+
+As said in the description, e is inspired from [Olivia](https://github.com/olivia-ai/olivia), yet it also uses a part of its code.
+The project was built upon Olivia's IA and a fork from it's Back-end. Currently, the back has been totally updated to meet the requirement we had over flexibility and mutability, but we still use the [IA]() for the moment.
+
+## License
+
+This project is under MIT licence
