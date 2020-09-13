@@ -14,9 +14,7 @@ Each part have it's own `README.md` where all the information relative to the sa
 git clone https://github.com/PoCFrance/e
 ```
 
-
-
-// todo luca -- build with android studio
+You need [Android Studio](https://developer.android.com/studio) to build the frontend application. When you'll open the project, it will automatically sync all dependencies. 
 
 ## Quick Start
 
@@ -24,15 +22,20 @@ As a developer or for testing, you can simply start the back end in local and re
 -- for dev purpose it's the basic option since IP isn't configurable yet
 first start the back-end
 
+- **Backend**
 ```shell
 cd back
 go run ./
 ```
 
-Then lunch android studio in the `front` folder, and build the app
-You can start the application once build is completed.
+- **Frontend**
 
-// todo luca -- update ip address (conf / raw code update)
+In the first place, you need to open the `MainActivity` file located in `app/java/com.poc.elivia/` and set your local IP address at line 26.
+
+To build the frontend application, open the front/Elivia folder in Android Studio.
+In the `Build` tab, select `Build Bundle(s) / APK(s)` and then `Build APK(s)`.
+
+Once the build has finished, you can copy the apk to your smartphone and install it by opening it in your file explorer.
 
 ## Maintainers
 
