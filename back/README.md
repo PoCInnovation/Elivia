@@ -13,6 +13,15 @@ all the project is made in go, so nothing more complicated than running it, go w
 go run ./
 ```
 
+## Docker
+
+You can start the back end directly into a docker container with the following commands
+
+```shell
+docker build -t go-elivia:latest .
+docker run -e "PORT=8080" -p 8080:8080 go-elivia
+```
+
 ## Features
 
 ### IA
