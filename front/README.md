@@ -1,7 +1,6 @@
 # Elivia Frontend
 
-// TODO: Add screenshot of the app.
-
+![appOverview](../.github/demo_olivia.png)
 ### Plugins
 
 It's really easy to add new plugins in the frontend.
