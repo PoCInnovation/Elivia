@@ -27,6 +27,7 @@ first start the back-end
 cd back
 go run ./
 ```
+more information [here](https://github.com/PoCFrance/e/blob/master/back/README.md)
 
 - **Frontend**
 
@@ -36,6 +37,8 @@ To build the frontend application, open the front/Elivia folder in Android Studi
 In the `Build` tab, select `Build Bundle(s) / APK(s)` and then `Build APK(s)`.
 
 Once the build has finished, you can copy the apk to your smartphone and install it by opening it in your file explorer.
+
+more information [here](https://github.com/PoCFrance/e/blob/master/front/README.md)
 
 ## Maintainers
 
