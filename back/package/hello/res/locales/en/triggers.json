@@ -1,0 +1,17 @@
+[
+    {
+        "Gratings": [
+            {
+                "entries": [],
+                "patterns": [
+                    "hello",
+                    "hi"
+                ],
+                "olivia-feed": [
+                    "hello",
+                    "hi"
+                ]
+            }
+        ]
+    }
+]
