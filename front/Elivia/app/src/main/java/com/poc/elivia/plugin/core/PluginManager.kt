@@ -30,6 +30,7 @@ class PluginManager(context: Context, activity: Activity, view: LeonView) {
     }
 
     private fun openAppPluginManager(data: JSONObject) {
+        Log.d("Leon", "${data["appname"]}")
         val appName = data["appname"] as String
 
         openApp.run(appName)

@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         val userTextInput: EditText = findViewById(R.id.userTextInput)
 
         val client = OkHttpClient();
-        val ipAddress = "192.168.0.14"
+        val ipAddress = "172.20.10.5"
         val request: Request = Request.Builder().url("ws://${ipAddress}:8080/websocket").build()
         val listener = LeonWebSocket(chat, plugins, this)
         val ws: WebSocket = client.newWebSocket(request, listener)

@@ -36,7 +36,11 @@ class LeonWebSocket(view: LeonView, plugins: PluginManager, activity: Activity):
         mainActivity.runOnUiThread {
             chat.addOliviaBubble(oliviaResponse)
         }
-        pluginManager.run(pluginName, obj["data"] as JSONObject)
+        val data = obj["data"] as JSONObject
+        if (data.length() == 0) {
+            return ;
+        }
+        pluginManager.run(pluginName, data)
     }
 
     override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
@@ -50,6 +54,7 @@ class LeonWebSocket(view: LeonView, plugins: PluginManager, activity: Activity):
 
     override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
         Log.d("LeonWebSocket", "WebSocket failure : [${t.message}]")
+        webSocket.close(1000,"Socket off")
     }
 
     fun onSend(webSocket: WebSocket, content: String) {
