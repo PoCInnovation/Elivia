@@ -1,76 +1,42 @@
-# Elivia Plugins
+# Elivia - Backend
 
-## format
+## Description
 
-![Screenshot from 2020-08-04 15-36-29](/home/qwexta/Pictures/Screenshot from 2020-08-04 15-36-29.png)
+As explained in the main README, Elia is a vocal assistant, and this is her back end.
+In this repository, you will find the IA itself, the packages added to the IA, and the websocket server linking it with the front end
 
-All the plugins are located in the "package" directory.
-They all have the same architecture :
+## Quick start
 
-* `.go` file making the code of the module
-* a resource folder `res` that holds the triggers and response of all languages
+all the project is made in go, so nothing more complicated than running it, go will download all needed dependencies
 
-### triggers.json
-
-holds a json array of handlers
-those handlers are relative to a specific function of the plugins although multiple handlers with different pattern can be link to the same function
-the object is defined as follow
-
-```json
-{
-    "entries": [] // optional will be explain more in depth after
-	"pattern": [] // the format of the sentence you want to match
-	"olivia-feed": [] // temporary and mendary, helps the IA to recognize your sentence from various exemple
-	"callback": "" // the function you want to be called then this pattern is uncountered
-}
+```shell
+go run ./
 ```
 
+## Features
 
+### IA
 
-the "pattern", "feed", and "callback" may seems straight forward, yet, the entries needs a bit more explainations
+As said right before, the main part about Elia, is the IA, it was extracted from [Olivia's](https://github.com/olivia-ai/the-math-behind-a-neural-network). For all documentation about the way it works, we strongly recommend checking their repository.
 
+### Packages
 
-### Entries
+One thing we added upon it, is the **package** system, Elia is able to load, compile, and train package at run time allowing you to add, remove or edit response at run time.
+To say it briefly, its the bread and butter of Elia, you can format response and trigger, call your own function, and safely extract data from the sentences that triggered your package.
 
-Entry helps to retreive element from the string you match, note that you should leave a blank in the pattern if you want to catch something there.
+**Packages** seems complicated but they aren't that much of deal, really. Plus there is a full documentation on how to write them, which features are implemented and the best practices around them. 
 
-entries are composed of 3 elements
+### Websocket
 
-```json
-{
-    "name":""
-	"parser":""
-	"resources": {}
-}
-```
+Elia uses Websocket to communicate with the front-end, the only route used is the serve one, allowing you to handle a sentence through the IA.
 
-the name is string you will use to retreive that entry within your code.
-the parser is the function that will be called to find out your entry, 3 of them are available nowadays :
+## What's next ?
 
-* after : gets the rest of the string after the match
-  it uses a specific ressourse to define the match requieres
+Elia is a PoC project, so the focus may change a bitt depending of the team taking over the project in the next months. but the main features left to implement are
 
-  ```json
-  "ressources":{
-      "key":"" // the needle you want to find, will not be included in the selection
-  	"x":0 	// the xth occurence of the key before considering it a match
-  			// note that you can set it with negative value to get the x nth last 				// element
-  }
-  ```
+* Enhance the IA - The current one works well, but with a **Text Data Vectorization** algorithm extracting meaning could have better result thus, leading to less misunderstanding error
+* Make it a run time - I lied when I said it was a run time interpreter of packages. It does, indeed, compile and run every package at run time, but it doesn't reload itself yet. This is an easy update that would allow a permanently running soft without any restart needed.
+* Package data - We would like to implement a tool making user's data manipulation easy inside of package, thus, you would be able to remember previous action from the user and act upon them.
+* Packages, packages and again, packages - We want to add enough of them so user would be able to choose which one they want and load only the one needed when making request with a user thus having a "store" of packages from which user would build their own little IA.
 
-* before : works the same as after but gets everything before, match not included
-
-* between : gets everything between the 2 matchs
-  it also define a resource format to match its need
-
-  ```json
-  "ressources":{
-  	"after": "", // The key for the starting match
-      "x": 0,		 // the x for the starting match
-
-      "before": "",// the key for the starting match
-      "y": 0		 // the x for the starting match
-  }
-  ```
-
-  ​
+As you can see, we have plenty of ideas and this is only a small grasp of what we plan to do.

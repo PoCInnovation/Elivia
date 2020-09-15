@@ -1,8 +1,8 @@
-### e
+### Elivia
 
 ## Description
 
-E is a vocal assistant designed to be respectful of user privacy over theirs data.
+Elivia is a vocal assistant designed to be respectful of user privacy over theirs data.
 The goal of this project is to be seen incorporated in /e/ os, a product from the [e foundation](https://e.foundation/), do to so it is supervised by [Gaël Duval](https://fr.wikipedia.org/wiki/Ga%C3%ABl_Duval).
 
 E Vocal Assistant is composed of 3 parts, a front end built in Kotlin using gradle, a back-end generously inspired from [Olivia](https://github.com/olivia-ai/olivia)'s design, packaging an AI, and a CLI tool made for testing purpose.
