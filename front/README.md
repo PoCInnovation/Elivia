@@ -1,6 +1,9 @@
 # Elivia Frontend
 
-![appOverview](../.github/demo_elivia.png)
+<p align="center">
+  <img src="../.github/demo_elivia.png" width=30%" center/>
+</p>
+
 ### Plugins
 
 It's really easy to add new plugins in the frontend.
