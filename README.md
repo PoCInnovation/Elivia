@@ -11,7 +11,7 @@ Each part have it's own `README.md` where all the information relative to the sa
  ## Installation
 
 ```shell
-git clone https://github.com/PoCFrance/e
+git clone git@github.com:PoCFrance/Elivia.git
 ```
 
 You need [Android Studio](https://developer.android.com/studio) to build the frontend application. When you'll open the project, it will automatically sync all dependencies. 
