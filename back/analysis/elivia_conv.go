@@ -3,8 +3,8 @@ package analysis
 import (
 	"sort"
 
-	"github.com/PoCFrance/e/plugins"
-	"github.com/PoCFrance/e/util"
+	"github.com/PoCInnovation/Elivia/plugins"
+	"github.com/PoCInnovation/Elivia/util"
 )
 
 // IntentTagFormat formats the tag associated with a function of the package

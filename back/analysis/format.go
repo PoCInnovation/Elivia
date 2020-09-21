@@ -5,9 +5,9 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/PoCFrance/e/locales"
+	"github.com/PoCInnovation/Elivia/locales"
 
-	"github.com/PoCFrance/e/util"
+	"github.com/PoCInnovation/Elivia/util"
 	"github.com/tebeka/snowball"
 )
 

@@ -5,10 +5,10 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/PoCInnovation/Elivia/network"
 	"github.com/gookit/color"
 	"github.com/gorilla/mux"
 	gocache "github.com/patrickmn/go-cache"
-	"github.com/PoCFrance/e/network"
 )
 
 var (

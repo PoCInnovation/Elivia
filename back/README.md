@@ -33,7 +33,7 @@ As said right before, the main part about Elia, is the IA, it was extracted from
 One thing we added upon it, is the **package** system, Elia is able to load, compile, and train package at run time allowing you to add, remove or edit response at run time.
 To say it briefly, its the bread and butter of Elia, you can format response and trigger, call your own function, and safely extract data from the sentences that triggered your package.
 
-**Packages** seems complicated but they aren't that much of deal, really. Plus there is a full [documentation](https://github.com/PoCFrance/e/blob/master/back/PACKAGES.md) on how to write them, which features are implemented and the best practices around them. 
+**Packages** seems complicated but they aren't that much of deal, really. Plus there is a full [documentation](https://github.com/PoCInnovation/Elivia/blob/master/back/PACKAGES.md) on how to write them, which features are implemented and the best practices around them. 
 
 ### Websocket
 

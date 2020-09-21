@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/PoCFrance/e/analysis"
-	"github.com/PoCFrance/e/network"
-	"github.com/PoCFrance/e/util"
+	"github.com/PoCInnovation/Elivia/analysis"
+	"github.com/PoCInnovation/Elivia/network"
+	"github.com/PoCInnovation/Elivia/util"
 	"github.com/gookit/color"
 )
 

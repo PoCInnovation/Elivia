@@ -3,8 +3,8 @@ package main
 // import (
 // 	"fmt"
 
-// 	"github.com/PoCFrance/e/myutil"
-// 	"github.com/PoCFrance/e/plugins"
+// 	"github.com/PoCInnovation/Elivia/myutil"
+// 	"github.com/PoCInnovation/Elivia/plugins"
 // )
 
 // func main() {
@@ -39,17 +39,17 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/PoCFrance/e/locales"
-	"github.com/PoCFrance/e/plugins"
-	"github.com/PoCFrance/e/training"
+	"github.com/PoCInnovation/Elivia/locales"
+	"github.com/PoCInnovation/Elivia/plugins"
+	"github.com/PoCInnovation/Elivia/training"
 
-	"github.com/PoCFrance/e/util"
+	"github.com/PoCInnovation/Elivia/util"
 
 	"github.com/gookit/color"
 
-	"github.com/PoCFrance/e/network"
+	"github.com/PoCInnovation/Elivia/network"
 
-	"github.com/PoCFrance/e/server"
+	"github.com/PoCInnovation/Elivia/server"
 )
 
 var neuralNetworks = map[string]network.Network{}

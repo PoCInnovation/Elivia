@@ -6,12 +6,12 @@ import (
 	"net/http"
 	"reflect"
 
-	"github.com/PoCFrance/e/locales"
-	"github.com/PoCFrance/e/plugins/bridge"
+	"github.com/PoCInnovation/Elivia/locales"
+	"github.com/PoCInnovation/Elivia/plugins/bridge"
 	"github.com/olivia-ai/olivia/user"
 
-	"github.com/PoCFrance/e/analysis"
-	"github.com/PoCFrance/e/util"
+	"github.com/PoCInnovation/Elivia/analysis"
+	"github.com/PoCInnovation/Elivia/util"
 	"github.com/gookit/color"
 	"github.com/gorilla/websocket"
 )

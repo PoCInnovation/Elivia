@@ -11,7 +11,7 @@ Each part have it's own `README.md` where all the information relative to the sa
  ## Installation
 
 ```shell
-git clone git@github.com:PoCFrance/Elivia.git
+git clone git@github.com:PoCInnovation/Elivia.git
 ```
 
 You need [Android Studio](https://developer.android.com/studio) to build the frontend application. When you'll open the project, it will automatically sync all dependencies. 
@@ -27,7 +27,7 @@ first start the back-end
 cd back
 go run ./
 ```
-More information [here](https://github.com/PoCFrance/e/blob/master/back/README.md)
+More information [here](https://github.com/PoCInnovation/Elivia/blob/master/back/README.md)
 
 - **Frontend**
 
@@ -38,7 +38,7 @@ In the `Build` tab, select `Build Bundle(s) / APK(s)` and then `Build APK(s)`.
 
 Once the build has finished, you can copy the apk to your smartphone and install it by opening it in your file explorer.
 
-More information [here](https://github.com/PoCFrance/e/blob/master/front/README.md)
+More information [here](https://github.com/PoCInnovation/Elivia/blob/master/front/README.md)
 
 ## Maintainers
 

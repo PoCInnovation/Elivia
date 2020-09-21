@@ -20,7 +20,7 @@ each of these language folder will hold a **response.json** and a **triggers.jso
 ## Code Architecture
 
 For the moment only Go is supported, we may add a support for all language compiling to ELF.
-Note that you can update the [loader](https://github.com/PoCFrance/e/blob/master/back/plugins/package.go) function to change the way the program load functions from external libraries
+Note that you can update the [loader](https://github.com/PoCInnovation/Elivia/blob/master/back/plugins/package.go) function to change the way the program load functions from external libraries
 
 Each Module will need an entry point, it been a function with this exact prototype
 
@@ -37,7 +37,7 @@ second : the **Map** you will be able to feed all the information you want to tr
 ## Triggers
 
 This is where the majority of the configuration is. it define when and how the Module will be called. as well as the module itself
-it is recommended to check the [sms](https://github.com/PoCFrance/e/blob/master/back/package/sms/res/locales/en/triggers.json) package as it serve as example.
+it is recommended to check the [sms](https://github.com/PoCInnovation/Elivia/blob/master/back/package/sms/res/locales/en/triggers.json) package as it serve as example.
 In this json, you will have an Array of Modules.
 Each module is defined by an **Array** of **Module Type** thus, a module can be triggered by multiple ways, and have various catchphrase without having issues to define them all.
 

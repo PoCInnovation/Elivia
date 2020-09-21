@@ -8,12 +8,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/PoCFrance/e/locales"
-	"github.com/PoCFrance/e/plugins"
-	"github.com/PoCFrance/e/plugins/bridge"
+	"github.com/PoCInnovation/Elivia/locales"
+	"github.com/PoCInnovation/Elivia/plugins"
+	"github.com/PoCInnovation/Elivia/plugins/bridge"
 
-	"github.com/PoCFrance/e/network"
-	"github.com/PoCFrance/e/util"
+	"github.com/PoCInnovation/Elivia/network"
+	"github.com/PoCInnovation/Elivia/util"
 	"github.com/gookit/color"
 	gocache "github.com/patrickmn/go-cache"
 )

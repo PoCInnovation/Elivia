@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/PoCFrance/e/locales"
+	"github.com/PoCInnovation/Elivia/locales"
 
 	"github.com/gookit/color"
 	"gopkg.in/cheggaaa/pb.v1"

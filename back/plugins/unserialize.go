@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"strconv"
 
-	"github.com/PoCFrance/e/util"
+	"github.com/PoCInnovation/Elivia/util"
 )
 
 // TMP TO UPDATE

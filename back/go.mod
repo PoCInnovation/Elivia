@@ -1,4 +1,4 @@
-module github.com/PoCFrance/e
+module github.com/PoCInnovation/Elivia
 
 go 1.13
 

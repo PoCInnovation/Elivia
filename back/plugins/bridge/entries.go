@@ -3,8 +3,8 @@ package bridge
 import (
 	"fmt"
 
-	"github.com/PoCFrance/e/metatools"
-	"github.com/PoCFrance/e/plugins"
+	"github.com/PoCInnovation/Elivia/metatools"
+	"github.com/PoCInnovation/Elivia/plugins"
 )
 
 // ExtractEntries finds the corresponding text in the field
