@@ -3,7 +3,7 @@
 
 <p align="center">
   <img src="https://1.bp.blogspot.com/-U9xZXxJL0jM/XVflXA-y7rI/AAAAAAAAmfE/Sl3U6tDPetg2TwBgce39GqxI_n7d0bRBwCLcBGAs/s1600/serveimage.png" width=30%"/>
-  <img src=".github/poclogo.jpg" width=50%"/>
+  <img src=".github/poclogo2.jpg" width=50%"/>
 </p>
 
 Elivia is an open-source project resulting from a partnership between the [PoC R&D center](https://github.com/PoCInnovation) and the [/e/ Foundation](https://e.foundation/),
