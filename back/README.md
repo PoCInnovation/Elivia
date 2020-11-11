@@ -3,7 +3,7 @@
 ## Description
 
 As explained in the main README, Elivia is a vocal assistant and this is her back end.
-In this repository, you will find the IA itself, the packages added to the IA and the websocket server linking it with the front end.
+In this repository, you will find the AI itself, the packages added to the AI and the websocket server linking it with the front end.
 
 ## Quick start
 
@@ -25,7 +25,7 @@ docker run -e "PORT=8080" -p 8080:8080 go-elivia
 
 ## Features
 
-### IA
+### AI
 
 As said right before, the main part about Elivia is the IA and has been extracted from [Olivia's](https://github.com/olivia-ai/the-math-behind-a-neural-network). For further documentation about the way it works we strongly recommend checking the Olivia repository.
 
@@ -38,13 +38,13 @@ Its the main operation of Elivia. You can format response and trigger, call your
 
 ### Websocket
 
-Elivia uses Websocket to communicate with the frontend. The only route used is the serve one, allowing you to handle a sentence through the IA.
+Elivia uses Websocket to communicate with the frontend. The only route used is the serve one, allowing you to handle a sentence through the AI.
 
 ## What's next ?
 
-Elivia is a PoC project, so the focus may change a bitt depending of the team taking over the project in the next months, but the main features left to implement are :
+Elivia is a PoC project, so the focus may change a bit depending of the team taking over the project in the next months, but the main features left to implement are :
 
-* Enhance the IA. The current one works well, but with a **Text Data Vectorization** algorithm extracting meaning could have better result thus, leading to less misunderstanding error
+* Enhance the AI. The current one works well, but with a **Text Data Vectorization** algorithm extracting meaning could have better result thus, leading to less misunderstanding error
 
 * Make it a runtime. It is not really a runtime interpreter of packages. It does, indeed, compile and run every package at runtime, but it doesn't reload itself yet. This is an easy update that would allow a permanently running soft without any restart needed.
 
