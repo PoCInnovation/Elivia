@@ -16,7 +16,7 @@ go run ./
 ## Docker
 
 We also provided a Dockerfile if you want to run the backend in an isolated environment.
-You can build the docker image and run the docker container using the following commands : 
+You can build the docker image and run the docker container using the following commands :
 
 ```shell
 docker build -t go-elivia:latest .
@@ -34,7 +34,7 @@ As said right before, the main part about Elivia is the IA and has been extracte
 One thing we added upon it is the **package** system. Elivia is able to load, compile and train package at runtime allowing you to add, remove or edit response at runtime.
 Its the main operation of Elivia. You can format response and trigger, call your own function and safely extract data from the sentences that your package has triggered .
 
-**Packages** seems complicated but they aren't really that much of deal. And there is a full [documentation](https://github.com/PoCInnovation/Elivia/blob/master/back/PACKAGES.md) on how to write them, which features are implemented and the best practices around them. 
+**Packages** seems complicated but they aren't really that much of deal. And there is a full [documentation](https://github.com/PoCInnovation/Elivia/blob/master/back/PACKAGES.md) on how to write them, which features are implemented and the best practices around them.
 
 ### Websocket
 

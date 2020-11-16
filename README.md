@@ -1,9 +1,9 @@
 ### Elivia
 
 
-<p align="center">
+<div align="center">
   <img src=".github/poclogo2.jpg" width=50%"/>
-</p>
+</div>
 
 Elivia is an open-source project resulting from a partnership between the [PoC R&D center](https://github.com/PoCInnovation) and the [/e/ Foundation](https://e.foundation/),
 along with the supervision of [Gaël Duval](https://fr.wikipedia.org/wiki/Ga%C3%ABl_Duval).

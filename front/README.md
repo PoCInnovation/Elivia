@@ -1,15 +1,9 @@
 # Elivia Frontend
 
-<p align="center">
+<div align="center">
   <img src="../.github/demo_elivia.png" width=30%" center/>
-</p>
+</div>
 
-
-## Description
-
-The Elivia frontend is a mobile app running on the /e/ operating system.
-
-The /e/ os is an Android fork and the frontend application can run on version 4.0 to 9.0 of Android and all corresponding versions of /e/.
 
 ## Quick start
 
